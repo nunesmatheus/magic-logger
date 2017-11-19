@@ -1,16 +1,17 @@
+# TODO: Should be HttpLog
 class Log
   require 'elasticsearch/persistence/model'
   include Elasticsearch::Persistence::Model
 
   # TODO: Always capitalize method before saving, etc
 
-  index_name 'logs'
+  index_name "log_#{Rails.env}"
 
   attribute :http_method, String
   attribute :request_id, String
   attribute :status, String
   attribute :host, String
-  attribute :path, String
+  attribute :path, String, mapping: { analyzer: 'special_characters' }
   attribute :fwd, String
   attribute :raw, String
 
@@ -32,5 +33,19 @@ class Log
 
   def self.relevant_attributes
     self.attributes - [:updated_at, :raw]
+  end
+
+  settings analysis: {
+    analyzer: {
+      special_characters: {
+        type: "custom",
+        filter: ["lowercase"],
+        tokenizer: "whitespace"
+      }
+    }
+  } do
+    mappings dynamic: 'false' do
+      indexes :path, analyzer: :special_characters
+    end
   end
 end
