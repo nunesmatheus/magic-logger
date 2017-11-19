@@ -5,10 +5,10 @@ RUN apt-get update && apt-get install -y git curl libpq-dev build-essential nfs-
 RUN apt-get update && apt-get install -y libc-ares2 libv8-3.14.5 postgresql-client nodejs --no-install-recommends
 RUN update-alternatives --force --install /usr/bin/node node /usr/bin/nodejs 10
 
-RUN mkdir -p /magic-logger
-WORKDIR /magic-logger/
+RUN mkdir -p /magic_logger
+WORKDIR /magic_logger/
 
-COPY . /magic-logger/
+COPY . /magic_logger/
 RUN bundle install
 
 EXPOSE 3000
