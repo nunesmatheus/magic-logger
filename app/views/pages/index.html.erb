@@ -17,8 +17,10 @@
   <%= submit_tag %>
 <% end %>
 
-<ul style="list-style: none; padding: 0">
-  <% @logs.each do |log| %>
-    <li class="log" style="margin-bottom: 10px"><%= log %></li>
-  <% end %>
-</ul>
+<div class="panel panel-default">
+  <ul class="list-group striped">
+    <% @logs.each do |log| %>
+      <li class="<%= 'list-group-item' if log.request_id.present? %> log"><%= log %></li>
+    <% end %>
+  </ul>
+</div>

@@ -16,10 +16,20 @@ class Log
   attribute :raw, String
 
   def to_s
-    return raw if request_id.blank?
+    if request_id.blank?
+      time = DateTime.parse raw
+      beautiful_time = time.strftime("%d/%m/%Y - %H:%M:%S %L")
+      ugly_date = time.strftime("%Y-%m-%dT%H:%M:%S.%6N%Z")
+      return "#{beautiful_time} #{raw.sub(ugly_date, '')}"
+    end
 
     self.class.attributes_order.map(&:to_sym).map do |attribute|
-      "#{attribute}=#{self.send(attribute).to_s}"
+      value = self.send(attribute).to_s
+      if attribute == :created_at
+        value = created_at.strftime("%d/%m/%Y - %H:%M:%S %L")
+      end
+
+      "#{attribute}=#{value}"
     end.join(" ")
   end
 
