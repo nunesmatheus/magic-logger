@@ -12,8 +12,11 @@ class Log
   attribute :host, String
   attribute :path, String
   attribute :fwd, String
+  attribute :raw, String
 
   def to_s
+    return raw if request_id.blank?
+
     self.class.attributes_order.map(&:to_sym).map do |attribute|
       "#{attribute}=#{self.send(attribute).to_s}"
     end.join(" ")
@@ -28,6 +31,6 @@ class Log
   end
 
   def self.relevant_attributes
-    self.attributes - [:updated_at]
+    self.attributes - [:updated_at, :raw]
   end
 end
