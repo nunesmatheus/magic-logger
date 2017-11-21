@@ -7,6 +7,27 @@
   &.index {
     margin: 0 20px;
 
+    h1 {
+      margin: 20px 0 25px 0;
+    }
+
+    #filters {
+      label {
+        padding: 6px;
+      }
+
+      input {
+        display: inline;
+        width: 150px;
+
+        margin: 0 15px 15px 0;
+      }
+
+      .btn {
+        margin: 0 0 3px 0;
+      }
+    }
+
     ul {
       list-style: none;
 
