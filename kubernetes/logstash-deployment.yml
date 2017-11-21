@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: losgtash
+  labels:
+    name: losgtash
+spec:
+  template:
+    metadata:
+      labels:
+        name: losgtash
+    spec:
+      containers:
+      - name: losgtash
+        image: docker.elastic.co/logstash/logstash:6.0.0
+        ports:
+          - containerPort: 9600
+            name: http
+            protocol: TCP
+        volumeMounts:
+          - name: logstash-config
+            mountPath: /usr/share/logstash/pipeline/
+      volumes:
+        - name: logstash-config
+          gcePersistentDisk:
+            # This disk must already exist.
+            pdName: magic-logger-elasticsearch
+            fsType: ext4
