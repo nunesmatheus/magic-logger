@@ -19,4 +19,11 @@ RSpec.describe Log, type: :model do
       expect(log_attributes - ['updated_at']).to eq Log.attributes_order
     end
   end
+
+  describe "#http_method" do
+    it "is always upcased" do
+      log.http_method = "put"
+      expect(log.http_method).to eq log.http_method.upcase
+    end
+  end
 end

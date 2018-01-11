@@ -1,4 +1,3 @@
-# TODO: Should be HttpLog
 class Log
   require 'elasticsearch/persistence/model'
   include Elasticsearch::Persistence::Model
@@ -14,6 +13,7 @@ class Log
   attribute :path, String, mapping: { analyzer: 'special_characters' }
   attribute :fwd, String
   attribute :raw, String
+  attribute :timestamp, DateTime
 
   def to_s
     if request_id.blank?
