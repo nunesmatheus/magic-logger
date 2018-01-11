@@ -15,8 +15,6 @@ class PagesController < ApplicationController
   private
 
   def query_params
-    params.permit(
-      :http_method, :request_id, :status, :host, :path, :fwd, :raw
-    )
+    params.permit(:http_method, :request_id, :status, :host, :path, :fwd, :raw)
   end
 end
