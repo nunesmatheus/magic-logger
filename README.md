@@ -7,6 +7,8 @@ Keep in mind this was made to consume logs from an application that runs on the 
 ## How to setup
 I chose to deploy the service with kubernetes on [Google Cloud Platform](https://cloud.google.com) and you can do so very easily as the kubernetes resource files are all set up. If you choose to do that, follow this steps:
 
+Substitute $YOUR_GCP_PROJECT by the id of your project on GCP.
+
 Create a [kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/) to setup the following env vars for the web application:
 - **ELASTICSEARCH_URL**: http://your-elasticsearch-service-ip:9200
 - **SECRET_KEY_BASE**: result of running ```rake secret```
