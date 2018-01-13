@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:6.0.0
+        image: elasticsearch:2.4.6-alpine
         ports:
           - containerPort: 9200
             name: http
@@ -20,12 +20,3 @@ spec:
           - containerPort: 9300
             name: transport
             protocol: TCP
-        volumeMounts:
-          - name: magic-logger-elasticsearch
-            mountPath: /usr/share/elasticsearch/data
-      volumes:
-        - name: magic-logger-elasticsearch
-          gcePersistentDisk:
-            # This disk must already exist.
-            pdName: magic-logger-elasticsearch
-            fsType: ext4

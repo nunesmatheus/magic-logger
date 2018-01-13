@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: logstash
+  name: magic-logger
   labels:
-    name: logstash
+    name: magic-logger
 spec:
   type: LoadBalancer
   ports:
-    - port: 9600
-      targetPort: 9600
+    - port: 80
+      targetPort: 3000
       protocol: TCP
   selector:
-    name: logstash
+    name: magic-logger

@@ -16,7 +16,7 @@ services:
     depends_on:
       - elasticsearch
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.0.0
+    image: elasticsearch:2.4.6-alpine
     ports:
       - "9200:9200"
       - "9300:9300"
