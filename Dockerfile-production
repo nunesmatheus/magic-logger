@@ -13,6 +13,7 @@ RUN bundle install
 
 RUN export PATH=$PATH:.
 ENV RAILS_ENV production
+ENV RAILS_LOG_TO_STDOUT true
 
 EXPOSE 3000
 
