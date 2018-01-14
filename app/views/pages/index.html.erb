@@ -47,9 +47,9 @@
           <tr>
             <% if log.timestamp.present? %>
               <td colspan="1"><%= log.timestamp.strftime('%d/%m/%Y - %H:%M:%S %3N') %></td>
-              <td colspan="6"><%= log.to_s %></td>
+              <td colspan="6"><%= simple_format(log.to_s) %></td>
             <% else %>
-              <td colspan="7"><%= log.raw %></td>
+              <td colspan="7"><%= simple_format(log.raw) %></td>
             <% end %>
           </tr>
         <% end %>
