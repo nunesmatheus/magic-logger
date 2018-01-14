@@ -25,16 +25,13 @@ class Log
 
     self.class.ordered_attributes.map(&:to_sym).map do |attribute|
       value = self.send(attribute).to_s
-      if attribute == :created_at
-        value = created_at.strftime("%d/%m/%Y - %H:%M:%S %L")
-      end
 
       "#{attribute}=#{value}"
     end.join(" ")
   end
 
   def self.ordered_attributes
-    %w(created_at http_method host path status fwd request_id)
+    %w(timestamp http_method host path status fwd request_id)
   end
 
   def self.attributes
