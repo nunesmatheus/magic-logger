@@ -8,20 +8,33 @@ RSpec.describe PagesController, type: :controller do
       Log.refresh_index!
     end
 
-    it "returns http success" do
-      get :index
-      expect(response).to have_http_status(:success)
+    context "for unsigned users" do
+      it 'is only allowed for signed in users' do
+        get :index
+        expect(response).to redirect_to new_session_path
+      end
     end
 
-    it "assign @logs with elasticsearch Logs" do
-      get :index
-      expect(assigns(:logs)).to be_present
-      expect(assigns(:logs).map(&:class).uniq).to eq([Log])
-    end
+    context "for signed users" do
+      before(:example) do
+        @request.session[:signed_in] = true
+      end
 
-    it "assign @logs sorted" do
-      expect(Log::Sorter).to receive(:sort_by_date)
-      get :index, params: { http_method: 'GET' }
+      it "returns http success" do
+        get :index
+        expect(response).to have_http_status(:success)
+      end
+
+      it "assign @logs with elasticsearch Logs" do
+        get :index
+        expect(assigns(:logs)).to be_present
+        expect(assigns(:logs).map(&:class).uniq).to eq([Log])
+      end
+
+      it "assign @logs sorted" do
+        expect(Log::Sorter).to receive(:sort_by_date)
+        get :index, params: { http_method: 'GET' }
+      end
     end
   end
 end

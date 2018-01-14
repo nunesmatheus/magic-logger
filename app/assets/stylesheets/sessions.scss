@@ -1,0 +1,14 @@
+.sessions {
+  main {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form {
+      input[type="password"] {
+        margin-left: 15px;
+      }
+    }
+  }
+}

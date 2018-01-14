@@ -28,3 +28,8 @@ spec:
               secretKeyRef:
                 name: magic-logger-secrets
                 key: secret_key_base
+          - name: DASHBOARD_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: magic-logger-secrets
+                key: dashboard_password
