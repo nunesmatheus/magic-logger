@@ -2,8 +2,6 @@ class Log
   require 'elasticsearch/persistence/model'
   include Elasticsearch::Persistence::Model
 
-  # TODO: Always capitalize method before saving, etc
-
   index_name "log_#{Rails.env}"
 
   attribute :http_method, String
@@ -14,6 +12,8 @@ class Log
   attribute :fwd, String
   attribute :raw, String
   attribute :timestamp, DateTime
+
+  before_save :capitalize_http_method
 
   def to_s
     if request_id.blank?
@@ -42,8 +42,15 @@ class Log
   end
 
   def self.relevant_attributes
-    self.attributes - [:updated_at, :raw]
+    self.attributes - [:created_at, :updated_at, :raw]
   end
+
+  private
+
+  def capitalize_http_method
+    self.http_method.try(:upcase!)
+  end
+
 
   settings analysis: {
     analyzer: {
