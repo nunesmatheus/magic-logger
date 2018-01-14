@@ -34,7 +34,7 @@
     <tbody>
       <% @logs.each do |log| %>
         <tr class="log">
-          <td><%= log.timestamp %></td>
+          <td><%= log.timestamp.strftime('%d/%m/%Y - %H:%M:%S %3N') %></td>
           <td><%= log.http_method %></td>
           <td><%= log.host %></td>
           <td><%= log.path %></td>
