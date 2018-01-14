@@ -16,7 +16,7 @@ class LogsController < ApplicationController
         raw: request.raw_post
       })
     else
-      Log.create raw: request.raw_post
+      Log.create raw: request.raw_post, timestamp: parser.timestamp
     end
 
     head :ok
