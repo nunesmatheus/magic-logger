@@ -5,7 +5,7 @@ class LogsController < ApplicationController
     parser = Log::Parser.new(request.raw_post)
 
     Log.create({
-      http_method: parser.http_method,
+      http_method: parser.method,
       request_id: parser.request_id,
       status: parser.status,
       host: parser.host,
