@@ -1,12 +1,14 @@
 class Log::Searcher
   def self.search(params)
-    Log.search({
+    logs = Log.search({
       query: {
         bool: {
           should: query_terms(params)
         }
       }
     })
+
+    Log::Sorter.sort_by_date(logs)
   end
 
   def self.query_terms(params)

@@ -1,9 +1,7 @@
 class PagesController < ApplicationController
   def index
     if query_params.any? { |k,v| v.present? }
-      @logs = Log::Searcher.search(query_params).sort do |x,y|
-        x.created_at.to_f <=> y.created_at.to_f
-      end.reverse
+      @logs = Log::Searcher.search(query_params)
     else
       @logs = Log.all
     end

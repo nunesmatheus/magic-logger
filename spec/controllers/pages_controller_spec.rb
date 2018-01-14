@@ -20,9 +20,8 @@ RSpec.describe PagesController, type: :controller do
     end
 
     it "assign @logs sorted" do
-      expect_any_instance_of(Log).to receive(:sorted)
-      get :index
+      expect(Log::Sorter).to receive(:sort_by_date)
+      get :index, params: { http_method: 'GET' }
     end
   end
-
 end
