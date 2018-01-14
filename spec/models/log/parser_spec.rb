@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Log::Parser do
-  
+
   let(:parser) { FactoryBot.build(:log_parser) }
 
   it "#timestamp" do
-    expect(parser.timestamp).to be_a DateTime
+    expect(parser.timestamp).to be_a Time
   end
 
   describe "#initialize" do
