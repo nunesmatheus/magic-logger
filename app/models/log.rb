@@ -17,10 +17,9 @@ class Log
 
   def to_s
     if request_id.blank?
-      time = DateTime.parse raw
-      beautiful_time = time.strftime("%d/%m/%Y - %H:%M:%S %L")
-      ugly_date = time.strftime("%Y-%m-%dT%H:%M:%S.%6N%Z")
-      return "#{beautiful_time} #{raw.sub(ugly_date, '')}"
+      raw_date = raw.scan(/\S+/)[2]
+      return raw if raw_date.blank?
+      return raw.sub(raw_date, '')
     end
 
     self.class.ordered_attributes.map(&:to_sym).map do |attribute|

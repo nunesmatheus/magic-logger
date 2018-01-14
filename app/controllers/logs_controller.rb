@@ -4,15 +4,20 @@ class LogsController < ApplicationController
   def create
     parser = Log::Parser.new(request.raw_post)
 
-    Log.create({
-      http_method: parser.method,
-      request_id: parser.request_id,
-      status: parser.status,
-      host: parser.host,
-      path: parser.path,
-      fwd: parser.fwd,
-      timestamp: parser.timestamp
-    })
+    if parser.try(:request_id)
+      Log.create({
+        http_method: parser.method,
+        request_id: parser.request_id,
+        status: parser.status,
+        host: parser.host,
+        path: parser.path,
+        fwd: parser.fwd,
+        timestamp: parser.timestamp,
+        raw: request.raw_post
+      })
+    else
+      Log.create raw: request.raw_post, timestamp: parser.timestamp
+    end
 
     head :ok
   end

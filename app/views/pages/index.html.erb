@@ -33,15 +33,26 @@
 
     <tbody>
       <% @logs.each do |log| %>
-        <tr class="log">
-          <td><%= log.timestamp.strftime('%d/%m/%Y - %H:%M:%S %3N') %></td>
-          <td><%= log.http_method %></td>
-          <td><%= log.host %></td>
-          <td><%= log.path %></td>
-          <td><%= log.status %></td>
-          <td><%= log.fwd %></td>
-          <td><%= log.request_id %></td>
-        </tr>
+        <% if log.request_id.present? %>
+          <tr class="log">
+            <td><%= log.timestamp.strftime('%d/%m/%Y - %H:%M:%S %3N') %></td>
+            <td><%= log.http_method %></td>
+            <td><%= log.host %></td>
+            <td><%= log.path %></td>
+            <td><%= log.status %></td>
+            <td><%= log.fwd %></td>
+            <td><%= log.request_id %></td>
+          </tr>
+        <% else %>
+          <tr>
+            <% if log.timestamp.present? %>
+              <td colspan="1"><%= log.timestamp.strftime('%d/%m/%Y - %H:%M:%S %3N') %></td>
+              <td colspan="6"><%= log.to_s %></td>
+            <% else %>
+              <td colspan="7"><%= log.raw %></td>
+            <% end %>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
