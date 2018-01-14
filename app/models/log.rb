@@ -16,7 +16,7 @@ class Log
   before_save :capitalize_http_method
 
   def to_s
-    if has_unexpected_format?
+    if request_id.blank?
       time = DateTime.parse raw
       beautiful_time = time.strftime("%d/%m/%Y - %H:%M:%S %L")
       ugly_date = time.strftime("%Y-%m-%dT%H:%M:%S.%6N%Z")
@@ -40,10 +40,6 @@ class Log
 
   def self.relevant_attributes
     self.attributes - [:created_at, :updated_at, :raw]
-  end
-
-  def has_unexpected_format?
-    request_id.blank?
   end
 
   private
