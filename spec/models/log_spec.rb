@@ -16,12 +16,12 @@ RSpec.describe Log, type: :model do
       expect(log.to_s).to include log.timestamp.day.to_s
     end
 
-    it "order information according to #attributes_order" do
+    it "order information according to #ordered_attributes" do
       log_attributes = log.to_s.to_enum(:scan, /(\S+)=/).map do
         Regexp.last_match
       end.map { |m| m.to_s.sub('=', '') }
 
-      expect(log_attributes - ['updated_at']).to eq Log.attributes_order
+      expect(log_attributes - ['updated_at']).to eq Log.ordered_attributes
     end
   end
 

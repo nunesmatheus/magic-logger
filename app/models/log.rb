@@ -23,7 +23,7 @@ class Log
       return "#{beautiful_time} #{raw.sub(ugly_date, '')}"
     end
 
-    self.class.attributes_order.map(&:to_sym).map do |attribute|
+    self.class.ordered_attributes.map(&:to_sym).map do |attribute|
       value = self.send(attribute).to_s
       if attribute == :created_at
         value = created_at.strftime("%d/%m/%Y - %H:%M:%S %L")
@@ -33,7 +33,7 @@ class Log
     end.join(" ")
   end
 
-  def self.attributes_order
+  def self.ordered_attributes
     %w(created_at http_method host path status fwd request_id)
   end
 
