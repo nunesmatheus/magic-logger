@@ -20,3 +20,12 @@ spec:
           - containerPort: 9300
             name: transport
             protocol: TCP
+        volumeMounts: 
+          - name: magic-logger-elasticsearch
+            mountPath: /usr/share/elasticsearch/data
+      volumes:
+        - name: magic-logger-elasticsearch
+          gcePersistentDisk:
+            # This disk must already exist.
+            pdName: magic-logger-elasticsearch
+            fsType: ext4
