@@ -32,6 +32,11 @@ RSpec.configure do |config|
     Log.create_index! force: true
   end
 
+  config.before(elasticsearch: true) do
+    Log.create_index! force: true
+    Log.refresh_index!
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
