@@ -1,4 +1,7 @@
 class PagesController < ApplicationController
+
+  before_action :force_authentication
+
   def index
     if query_params.any? { |k,v| v.present? }
       @logs = Log::Searcher.search(query_params)

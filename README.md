@@ -12,6 +12,7 @@ Substitute $YOUR_GCP_PROJECT by the id of your project on GCP.
 Create a [kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/) to setup the following env vars for the web application:
 - **ELASTICSEARCH_URL**: http://your-elasticsearch-service-ip:9200
 - **SECRET_KEY_BASE**: result of running ```rake secret```
+- **DASHBOARD_PASSWORD**: string of your choice to authenticate before accessing the dashboard
 
 Create the kubernetes resources(deployment and services for the elasticsearch instance and the Rails application).
 
