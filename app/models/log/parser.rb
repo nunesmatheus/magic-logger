@@ -12,9 +12,10 @@ class Log::Parser
   end
 
   def timestamp
-    raw_date = @raw_log.scan(/\S+/)[1]
-    return unless raw_date.present?
-    Time.parse(raw_date).in_time_zone('Brasilia')
+    raw_date = @raw_log.scan(/\S+/)[2]
+    date = Time.try(:parse, raw_date)
+    return Time.current if raw_date.blank?
+    date.in_time_zone('Brasilia')
   end
 
 
