@@ -28,17 +28,8 @@
       }
     }
 
-    ul {
-      list-style: none;
-
-      li {
-        font-size: 14px;
-
-        &.list-group-item {
-          margin: 15px 0;
-          background-color: #eee;
-        }
-      }
+    a.btn {
+      margin-bottom: 15px;
     }
   }
 }

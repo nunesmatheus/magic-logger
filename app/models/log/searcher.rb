@@ -1,14 +1,33 @@
 class Log::Searcher
-  def self.search(params)
+  def self.search(params, options={})
+    return Log.all unless params.any? || options[:before_log].present?
+
     logs = Log.search({
+      from: 0, size: 1000,
       query: {
         bool: {
-          should: query_terms(params)
+          should:
+            query_terms(params) +
+            before_log(options[:before_log])
+          }
         }
-      }
     })
 
     Log::Sorter.sort_by_date(logs)
+  end
+
+  def self.before_log(log)
+    return [] if log.blank?
+
+    [
+      {
+        range: {
+          timestamp: {
+            lte: log.timestamp,
+          }
+        }
+      }
+    ]
   end
 
   def self.query_terms(params)

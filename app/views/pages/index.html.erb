@@ -34,7 +34,7 @@
     <tbody>
       <% @logs.each do |log| %>
         <% if log.request_id.present? %>
-          <tr class="log">
+          <tr id="<%= log.id %>" class="log">
             <td><%= log.timestamp.strftime('%d/%m/%Y - %H:%M:%S %3N') %></td>
             <td><%= log.http_method %></td>
             <td><%= log.host %></td>
@@ -44,7 +44,7 @@
             <td><%= log.request_id %></td>
           </tr>
         <% else %>
-          <tr>
+          <tr id="<%= log.id %>">
             <% if log.timestamp.present? %>
               <td colspan="1"><%= log.timestamp.strftime('%d/%m/%Y - %H:%M:%S %3N') %></td>
               <td colspan="6"><%= simple_format(log.to_s) %></td>
@@ -57,3 +57,7 @@
     </tbody>
   </table>
 </div>
+
+<% if @logs.size >= @per_page %>
+  <a class="btn btn-block btn-primary" href="/?per_page=<%= @per_page + Kaminari.config.default_per_page %>&before_log=<%= @logs.first.id %>#<%= @logs.last.id %>">more...</a>
+<% end %>
