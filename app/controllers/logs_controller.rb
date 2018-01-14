@@ -13,5 +13,7 @@ class LogsController < ApplicationController
       fwd: parser.fwd,
       timestamp: parser.timestamp
     })
+
+    head :ok
   end
 end
