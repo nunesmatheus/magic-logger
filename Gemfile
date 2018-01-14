@@ -31,13 +31,23 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'pry'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'elasticsearch-model', '< 3.0'
+gem 'elasticsearch-persistence', '< 3.0'
+gem 'elasticsearch-rails', '< 3.0'
+
+gem 'bootstrap', '~> 4.0.0.beta2.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails', '~> 3.6'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -48,6 +58,12 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+group :production do
+  gem 'rails_12factor'
+end
+
+gem 'rails-controller-testing'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

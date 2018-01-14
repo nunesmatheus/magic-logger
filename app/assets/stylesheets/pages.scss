@@ -1,0 +1,44 @@
+// Place all the styles related to the Pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.pages {
+  &.index {
+    margin: 0 20px;
+
+    h1 {
+      margin: 20px 0 25px 0;
+    }
+
+    #filters {
+      label {
+        padding: 6px;
+      }
+
+      input {
+        display: inline;
+        width: 150px;
+
+        margin: 0 15px 15px 0;
+      }
+
+      .btn {
+        margin: 0 0 3px 0;
+      }
+    }
+
+    ul {
+      list-style: none;
+
+      li {
+        font-size: 14px;
+
+        &.list-group-item {
+          margin: 15px 0;
+          background-color: #eee;
+        }
+      }
+    }
+  }
+}

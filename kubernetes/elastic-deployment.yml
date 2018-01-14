@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: elasticsearch
+  labels:
+    name: elasticsearch
+spec:
+  template:
+    metadata:
+      labels:
+        name: elasticsearch
+    spec:
+      containers:
+      - name: elasticsearch
+        image: elasticsearch:2.4.6-alpine
+        ports:
+          - containerPort: 9200
+            name: http
+            protocol: TCP
+          - containerPort: 9300
+            name: transport
+            protocol: TCP

@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: magic-logger
+  labels:
+    name: magic-logger
+spec:
+  template:
+    metadata:
+      labels:
+        name: magic-logger
+    spec:
+      containers:
+      - name: magic-logger
+        image: gcr.io/$YOUR_GCP_PROJECT/magic-logger:latest
+        ports:
+          - containerPort: 3000
+            name: http
+            protocol: TCP
+        env:
+          - name: ELASTICSEARCH_URL
+            valueFrom:
+              secretKeyRef:
+                name: magic-logger-secrets
+                key: elasticsearch_url
+          - name: SECRET_KEY_BASE
+            valueFrom:
+              secretKeyRef:
+                name: magic-logger-secrets
+                key: secret_key_base

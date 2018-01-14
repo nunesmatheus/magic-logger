@@ -1,0 +1,30 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: bash -c "while [ true ]; do sleep 10; done"
+    volumes:
+      - ".:/magic_logger/"
+    environment:
+      - RAILS_ENV=development
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+  elasticsearch:
+    image: elasticsearch:2.4.6-alpine
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    expose:
+      - "9200"
+    volumes:
+      - elastic-data:/usr/share/elasticsearch/data
+
+volumes:
+  elastic-data:
+    driver: local

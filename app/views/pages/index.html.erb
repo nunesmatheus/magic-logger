@@ -1,0 +1,28 @@
+<h1>Magic Logger</h1>
+
+<%= form_tag root_path, method: :get, id: 'filters' do %>
+  <%= label_tag :http_method, 'HTTP method' %>
+  <%= text_field_tag :http_method, @query_params[:http_method], class: 'form-control' %>
+  <%= label_tag :request_id, 'Request ID' %>
+  <%= text_field_tag :request_id, @query_params[:request_id], class: 'form-control' %>
+  <%= label_tag :status %>
+  <%= text_field_tag :status, @query_params[:status], class: 'form-control' %>
+  <%= label_tag :host %>
+  <%= text_field_tag :host, @query_params[:host], class: 'form-control' %>
+  <%= label_tag :path %>
+  <%= text_field_tag :path, @query_params[:path], class: 'form-control' %>
+  <%= label_tag :fwd, 'FWD' %>
+  <%= text_field_tag :fwd, @query_params[:fwd], class: 'form-control' %>
+
+  <%= submit_tag "Filter", class: 'btn btn-primary' %>
+<% end %>
+
+<hr>
+
+<div class="panel panel-default">
+  <ul class="list-group striped">
+    <% @logs.each do |log| %>
+      <li class="<%= 'list-group-item' if log.request_id.present? %> log"><%= log %></li>
+    <% end %>
+  </ul>
+</div>
