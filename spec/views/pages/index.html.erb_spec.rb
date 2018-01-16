@@ -15,7 +15,6 @@ RSpec.describe "pages/index.html.erb", type: :view do
     expect(rendered).to have_css 'td', text: logs.sample.status
     expect(rendered).to have_css 'td', text: logs.sample.host
     expect(rendered).to have_css 'td', text: logs.sample.path
-    expect(rendered).to have_css 'td', text: logs.sample.fwd
   end
 
   it "shows raw data when log is not in request format" do
