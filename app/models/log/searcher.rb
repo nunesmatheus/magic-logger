@@ -12,8 +12,6 @@ class Log::Searcher
           }
         }
     })
-
-    Log::Sorter.sort_by_date(logs)
   end
 
   def self.before_log(log)
