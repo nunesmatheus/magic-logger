@@ -1,7 +1,9 @@
 class Log::Searcher
   def self.search(params, options={})
+    per_page = options[:per_page] || Kaminari.config.default_per_page
+
     logs = Log.search({
-      size: options[:per_page],
+      size: per_page,
       query: {
         bool: {
           must:
