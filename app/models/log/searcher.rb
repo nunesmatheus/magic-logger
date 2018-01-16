@@ -4,7 +4,7 @@ class Log::Searcher
       size: options[:per_page],
       query: {
         bool: {
-          should:
+          must:
             query_terms(params) +
             before_log(options[:before_log])
           }
