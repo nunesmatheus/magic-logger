@@ -31,6 +31,6 @@ class Log::Parser
   end
 
   def attribute_names
-    @raw_log.scan(/(\S+)=/).flatten
+    @raw_log.scan(/ ([a-z]+_*[a-z]*)=/).flatten
   end
 end
