@@ -35,6 +35,12 @@ RSpec.describe PagesController, type: :controller do
         expect(Log::Sorter).to receive(:sort_by_date)
         get :index, params: { http_method: 'GET' }
       end
+
+      it "assign @logs paginated" do
+        build_list(:log, Kaminari.config.default_per_page).each &:save
+        get :index
+        expect(assigns(:logs).size).to eq(Kaminari.config.default_per_page)
+      end
     end
   end
 end

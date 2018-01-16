@@ -65,6 +65,10 @@ group :production do
   gem 'rails_12factor'
 end
 
+group :test do
+  gem 'capybara'
+end
+
 gem 'rails-controller-testing'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

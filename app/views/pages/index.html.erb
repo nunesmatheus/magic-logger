@@ -58,6 +58,6 @@
   </table>
 </div>
 
-<% if @logs.size >= @per_page %>
+<% if @logs.size == @per_page %>
   <a class="btn btn-block btn-primary" href="/?per_page=<%= @per_page + Kaminari.config.default_per_page %>&before_log=<%= @logs.first.id %>#<%= @logs.last.id %>">more...</a>
 <% end %>

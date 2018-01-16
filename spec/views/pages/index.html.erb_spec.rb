@@ -6,6 +6,7 @@ RSpec.describe "pages/index.html.erb", type: :view do
   before(:example) do
     assign :query_params, {}
     assign :logs, logs
+    assign :per_page, Kaminari.config.default_per_page
   end
 
   it "shows structured request data" do
@@ -24,11 +25,5 @@ RSpec.describe "pages/index.html.erb", type: :view do
     assign :logs, logs + [non_structured_log]
     render
     expect(rendered).to include(non_structured_data)
-  end
-
-  xit "Lists paginated logs" do
-    render
-    per_page = Kaminari.default_per_page
-    expect(rendered.count('<li')).to eq(per_page)
   end
 end
