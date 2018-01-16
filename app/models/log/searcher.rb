@@ -1,14 +1,15 @@
 class Log::Searcher
   def self.search(params, options={})
     logs = Log.search({
-      from: 0, size: options[:per_page],
+      size: options[:per_page],
       query: {
         bool: {
           should:
             query_terms(params) +
             before_log(options[:before_log])
           }
-        }
+        },
+      sort: { timestamp: { order: :desc }}
     })
   end
 
