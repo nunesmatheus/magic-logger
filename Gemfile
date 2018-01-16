@@ -33,6 +33,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'pry'
 
+gem 'kaminari'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -61,6 +63,10 @@ end
 
 group :production do
   gem 'rails_12factor'
+end
+
+group :test do
+  gem 'capybara'
 end
 
 gem 'rails-controller-testing'

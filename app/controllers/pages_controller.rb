@@ -1,15 +1,20 @@
 class PagesController < ApplicationController
 
   before_action :force_authentication
+  before_action :set_query_params
+  before_action :set_before_log
+  before_action :set_per_page
 
   def index
-    if query_params.any? { |k,v| v.present? }
-      @logs = Log::Searcher.search(query_params)
-    else
-      @logs = Log::Sorter.sort_by_date(Log.all)
+    @logs = Log::Searcher.search(query_params, { before_log: @before_log })
+
+    if query_params.empty?
+      @logs = Log::Sorter.sort_by_date(@logs)
     end
 
-    @query_params = query_params
+    if @logs.present?
+      @logs = Kaminari.paginate_array(@logs).page(1).per(@per_page)
+    end
   end
 
 
@@ -17,5 +22,18 @@ class PagesController < ApplicationController
 
   def query_params
     params.permit(:http_method, :request_id, :status, :host, :path, :fwd, :raw)
+  end
+
+  def set_before_log
+    return if params[:before_log].blank?
+    @before_log = Log.find(params[:before_log])
+  end
+
+  def set_query_params
+    @query_params = query_params
+  end
+
+  def set_per_page
+    @per_page = (params[:per_page] || Kaminari.config.default_per_page).to_i
   end
 end
