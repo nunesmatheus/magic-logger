@@ -10,11 +10,11 @@ class PagesController < ApplicationController
     @per_page = params[:per_page] || Kaminari.config.default_per_page
     @per_page = @per_page.to_i
 
-    if query_params.any? { |k,v| v.present? }
-      @logs = Kaminari.paginate_array(Log::Searcher.search(query_params, { before_log: @before_log })).page(1).per(@per_page)
-    else
-      @logs = Kaminari.paginate_array(Log::Sorter.sort_by_date(Log::Searcher.search({}, { before_log: @before_log }))).page(1).per(@per_page)
+    @logs = Log::Searcher.search(query_params, { before_log: @before_log })
+    if query_params.empty?
+      @logs = Log::Sorter.sort_by_date(@logs)
     end
+    @logs = Kaminari.paginate_array(@logs).page(1).per(@per_page)
 
     @query_params = query_params
   end
