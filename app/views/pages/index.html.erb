@@ -23,11 +23,10 @@
   <table class="table table-striped table-bordered logs">
     <thead class="thead-dark">
       <th class="timestamp">timestamp</th>
-      <th class="http_method">http_method</th>
+      <th class="http_method">method</th>
       <th class="host">host</th>
       <th class="path">path</th>
       <th class="status">status</th>
-      <th class="fwd">fwd</th>
     </thead>
 
     <tbody>
@@ -39,7 +38,6 @@
             <td class="host"><%= log.host %></td>
             <td class="path"><%= log.path %></td>
             <td class="status"><%= log.status %></td>
-            <td class="fwd"><%= log.fwd %></td>
           </tr>
         <% else %>
           <tr id="<%= log.id %>" class="arbitrary-log">
