@@ -3,7 +3,7 @@ class Log::Searcher
     return Log.all unless params.any? || options[:before_log].present?
 
     logs = Log.search({
-      from: 0, size: 1000,
+      from: 0, size: 10000,
       query: {
         bool: {
           should:
