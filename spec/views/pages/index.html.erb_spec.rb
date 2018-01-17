@@ -24,4 +24,11 @@ RSpec.describe "pages/index.html.erb", type: :view do
     render
     expect(rendered).to include(non_structured_data)
   end
+
+  it "auto fills query bar according to current search" do
+    query = 'method=get'
+    assign :query, query
+    render
+    expect(rendered).to have_css "#query[value='#{query}']"
+  end
 end
