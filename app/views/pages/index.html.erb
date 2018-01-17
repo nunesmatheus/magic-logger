@@ -3,6 +3,10 @@
 <%= form_tag root_path, method: :get, id: 'filters' do %>
   <%= label_tag :query, 'Query' %>
   <%= text_field_tag :query, @query, class: 'form-control' %>
+  <%= label_tag :from, 'From' %>
+  <%= text_field_tag :from, @from.try(:strftime, '%d/%m/%Y %H:%M'), class: 'form-control' %>
+  <%= label_tag :to, 'To' %>
+  <%= text_field_tag :to, @to.try(:strftime, '%d/%m/%Y %H:%M'), class: 'form-control' %>
 
   <%= submit_tag "Filter", class: 'btn btn-primary' %>
 <% end %>
