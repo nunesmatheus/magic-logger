@@ -34,8 +34,19 @@ class Log::Searcher
       value.present?
     end
 
-    params.map do |param, value|
+    es_params = params.map do |param, value|
       { term: { param => value } }
     end
+
+    es_params = handle_special_host(es_params, params)
+  end
+
+  def self.handle_special_host(es_params, params)
+    return es_params unless params[:host].try(:include?, '-')
+
+    es_params -= [{ term: { host: params[:host] } }]
+    es_params += [{ term: { host: params[:host].split('-')[0] } }]
+    es_params += [{ term: { host: params[:host].split('-')[1] } }]
+    es_params
   end
 end
