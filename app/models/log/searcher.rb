@@ -2,13 +2,14 @@ class Log::Searcher
   def self.search(params, options={})
     per_page = options[:per_page] || Kaminari.config.default_per_page
 
-    logs = Log.search({
+    Log.search({
       size: per_page,
       query: {
         bool: {
           must:
             query_terms(params) +
-            before_log(options[:before_log])
+            before_log(options[:before_log]) +
+            date_filter(options[:from], options[:to])
           }
         },
       sort: { timestamp: { order: :desc }}
@@ -23,6 +24,21 @@ class Log::Searcher
         range: {
           timestamp: {
             lte: log.timestamp,
+          }
+        }
+      }
+    ]
+  end
+
+  def self.date_filter(from, to)
+    return [] if from.blank? && to.blank?
+
+    [
+      {
+        range: {
+          timestamp: {
+            gte: from,
+            lte: to
           }
         }
       }
