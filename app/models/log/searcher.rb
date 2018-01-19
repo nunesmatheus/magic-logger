@@ -1,10 +1,10 @@
 class Log::Searcher
   def self.search(params, options={})
     per_page = options[:per_page] || Kaminari.config.default_per_page
-    per_page *= 3 if options[:expanding]
+    per_page /= 2 if options[:expanding]
 
     logs = Log.search({
-      from: 50, size: per_page,
+      size: per_page,
       query: {
         bool: {
           must:
@@ -17,8 +17,12 @@ class Log::Searcher
       sort: { timestamp: { order: order(options) }}
     })
 
-    return logs unless (options[:after_log].present? && options[:expanding].present?)
-    logs.sort { |x,y| x.created_at <=> y.created_at }
+    return logs unless options[:expanding].present?
+    if options[:after_log].present?
+      logs.sort { |x,y| x.timestamp <=> y.timestamp }.reverse
+    else
+      logs.sort { |x,y| x.timestamp <=> y.timestamp }
+    end
   end
 
   def self.before_log(log)
