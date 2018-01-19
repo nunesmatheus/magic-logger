@@ -1,7 +1,7 @@
 class Log::Searcher
   def self.search(params, options={})
     per_page = options[:per_page] || Kaminari.config.default_per_page
-    per_page /= 2 if options[:expanding]
+    per_page *= 2 if options[:expanding]
 
     logs = Log.search({
       size: per_page,
