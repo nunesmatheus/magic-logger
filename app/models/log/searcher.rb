@@ -7,14 +7,16 @@ class Log::Searcher
       size: per_page,
       query: {
         bool: {
-          must: [
-            query_terms(params)
-          ]
+          must:
+            query_terms(params) +
+            before_log(options[:before_log]) +
+            after_log(options[:after_log]) +
+            date_filter(options[:from], options[:to])
         }
       },
       sort: { timestamp: { order: order(options) }}
     })
-    
+
     return logs unless options[:expanding].present?
     if options[:after_log].present?
       logs.sort { |x,y| x.timestamp <=> y.timestamp }.reverse
