@@ -33,6 +33,7 @@ gem 'pry'
 
 gem 'kaminari'
 
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -61,6 +62,7 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'bugsnag'
 end
 
 group :test do
